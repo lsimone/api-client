@@ -12,10 +12,13 @@
   "author": "loris32",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
-    "swagger-mock-api": "^1.6.0",
     "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-preset-es2015": "^6.24.1",
+    "express": "^4.16.3",
+    "isomorphic-fetch": "^2.2.1",
+    "lodash": "^4.17.5",
+    "object-mapper": "^5.0.0",
+    "swagger-mock-api": "^1.6.0"
   },
   "devDependencies": {}
 }
