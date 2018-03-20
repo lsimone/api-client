@@ -2,9 +2,10 @@
   "name": "iso-client",
   "version": "0.0.1",
   "description": "api client middleware-based with mocking server",
-  "main": "src/index.js",
+  "browser": "dist/client.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node dist/test.js",
+    "start": "node dist/server.js",
     "install": "babel src --presets babel-preset-es2015 --out-dir dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
