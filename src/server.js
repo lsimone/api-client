@@ -6,10 +6,11 @@ import { init as clientInit } from './client'
 export { call } from './client'
 
 export function init (defaultHost, getDefaultHeaders, options = {}) {
+    let mockServerPort
 
     if (options.swagger) {
         console.log('MOCK SERVER INIT')
-        const port = options.mockServerPort || 3000
+        mockServerPort = options.mockServerPort || 3000
 
         const app = express()
 
@@ -18,8 +19,8 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
             watch: true // enable reloading the routes and schemas when the swagger file changes
         }))
 
-        app.listen(port, () => console.log(`Mock server listening on port ${port}!`))
+        app.listen(mockServerPort, () => console.log(`Mock server listening on port ${mockServerPort}!`))
     }
 
-    return clientInit(defaultHost, getDefaultHeaders)
+    return clientInit(defaultHost, getDefaultHeaders, { ...options, mockServerPort })
 }

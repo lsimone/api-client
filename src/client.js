@@ -6,7 +6,7 @@ import fallback from './middlewares/fallback'
 import extractData from './middlewares/extractData'
 import { getCaller } from './utils'
 
-let _defaultHost, _getDefaultHeaders, _customMiddlewares, _debug
+let _defaultHost, _getDefaultHeaders, _customMiddlewares, _debug, _mockServerPort
 const URL_MATCHER_REGEXP = new RegExp('(\\:([^\\/]+))', 'g')
 const ARRAY_SEPARATOR = ','
 
@@ -16,6 +16,7 @@ const ARRAY_SEPARATOR = ','
  * @param {Function} getDefaultHeaders
  * @param {Object} [options]
  * @param {Function[]} [options.middlewares]
+ * @param {Number} [options.mockServerPort]
  * @param {Boolean} [options.debug] debug mode: log enabled
  */
 export function init (defaultHost, getDefaultHeaders, options = {}) {
@@ -23,6 +24,7 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
     _getDefaultHeaders = getDefaultHeaders
     _customMiddlewares = options.middlewares || []
     _debug = options.debug
+    _mockServerPort = options.mockServerPort
 }
 
 /**
@@ -44,7 +46,8 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
  */
 export function call (endpoint, options = {}) {
     const host = options.host || _defaultHost
-    const url = getUrl(host, endpoint, options.params)
+    const basePath = (options.mock === true)? `http://localhost:${_mockServerPort}` : host
+    const url = getUrl(basePath, endpoint, options.params)
     const opt = {
         headers: {
             ..._getDefaultHeaders(),
