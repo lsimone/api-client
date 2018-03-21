@@ -8,11 +8,9 @@ import map from './mapper'
  */
 export default function mapToModel ({options: {model}, debug}, res) {
     debug && console.log('mapping', res)
-    if (!model) {
-        return res
+    if (model && res.data !== undefined) {
+        res.data = Array.isArray(res.data)
+            ? res.data.map(item => map(item, model)) : map(res.data, model)
     }
-    if (Array.isArray(res)) {
-        return res.map(item => map(item, model))
-    }
-    return map(res, model)
+    return res
 }
