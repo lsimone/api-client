@@ -1,5 +1,5 @@
 {
-  "name": "iso-client",
+  "name": "api-client",
   "version": "0.0.1",
   "description": "api client middleware-based with mocking server",
   "browser": "dist/client.js",
@@ -16,7 +16,6 @@
     "babel-preset-es2015": "^6.24.1",
     "express": "^4.16.3",
     "isomorphic-fetch": "^2.2.1",
-    "lodash": "^4.17.5",
     "object-mapper": "^5.0.0",
     "swagger-mock-api": "^1.6.0"
   },

@@ -1,4 +1,4 @@
-import _mapValues from 'lodash/mapValues'
+import { mapValues } from '../../utils'
 import objMap from 'object-mapper'
 
 const isModel = dest => (typeof dest === 'object' && dest.model)
@@ -8,7 +8,7 @@ export default function map (obj, model) {
 }
 
 function wrapModels (model) {
-    return _mapValues(model, dest => isModel(dest)
+    return mapValues(model, dest => isModel(dest)
         ? {
             key: dest.key,
             transform: obj => {

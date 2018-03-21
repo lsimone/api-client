@@ -10,3 +10,8 @@ export function getCaller (stackJump = 0) {
         .split(/\r?\n/)[stackJump + 3]
         .replace(/\s*at\s*/, '')
 }
+
+export function mapValues (obj, mapFn) {
+    return Object.keys(obj)
+        .reduce((acc, key) => ({...acc, [key] : mapFn(obj[key])}), {})
+}

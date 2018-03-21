@@ -1,4 +1,4 @@
-# WIP - isomorphic API client
+# WIP - api-client - isomorphic API client
 
 This API client supports node and browser environments.
 It uses [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) under the hood,
