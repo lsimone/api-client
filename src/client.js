@@ -1,7 +1,8 @@
 import fetch from 'isomorphic-fetch'
 import status from './middlewares/status'
 import mapToModel from './middlewares/map'
-import mock from './middlewares/mock'
+import mockSuccess from './middlewares/mock/success'
+import mockError from './middlewares/mock/error'
 import fallback from './middlewares/fallback'
 import extractData from './middlewares/extractData'
 import { getCaller } from './utils'
@@ -68,7 +69,6 @@ export function call (endpoint, options = {}) {
     const middlewares = [
         status,
         fallback,
-        mock,
         mapToModel,
         ..._customMiddlewares,
         extractData
@@ -77,8 +77,12 @@ export function call (endpoint, options = {}) {
     // TODO: to be uncommented the next line and commented the one below
     _debug && console.log('API-CLIENT CALL', getCaller(1), req)
 
+    const mockedFetch = fetch(url, opt)
+        .then(mockSuccess.bind(this, req))
+        .catch(mockError.bind(this, req))
+
     // middleware binding
-    return chainMiddlewares(fetch(url, opt), middlewares, req)
+    return chainMiddlewares(mockedFetch, middlewares, req)
 }
 
 function chainMiddlewares (promise, middlewares, req) {
