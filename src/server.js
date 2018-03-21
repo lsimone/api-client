@@ -1,5 +1,6 @@
-import express from 'express'
 import path from 'path'
+import express from 'express'
+import cors from 'cors'
 import mockApi from 'swagger-mock-api'
 import { init as clientInit } from './client'
 
@@ -14,7 +15,7 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
 
         const app = express()
 
-        app.use(mockApi({
+        app.use(cors(), mockApi({
             swaggerFile: path.join(__dirname, options.swagger),
             watch: true // enable reloading the routes and schemas when the swagger file changes
         }))
