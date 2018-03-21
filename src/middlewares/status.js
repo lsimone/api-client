@@ -1,9 +1,9 @@
 export default function status (req, res) {
     // returns res or a promise that resolves with res
     return isError(res)
-        ? res.json().then(data => Object.assign(res, {data})) : Object.assign(res, {errorCode: res.status})
+        ? Object.assign(res, {errorCode: res.status}) : res.json().then(data => Object.assign(res, {data}))
 }
 
 function isError (res) {
-    return (res.status >= 200 && res.status < 300)
+    return res instanceof Error || !(res.status >= 200 && res.status < 300)
 }
