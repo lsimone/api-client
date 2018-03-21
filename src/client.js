@@ -34,6 +34,7 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
  * @param {Object} [options]
  * @param {String} [options.host]
  * @param {Object} [options.body]
+ * @param {Object} [options.headers]
  * @param {Object} [options.mock] this object will be used as a temporary mock when an API endpoint is not ready yet.
  * @param {Object} [options.fallback] this object will be used as response data when an API endpoint returns error (and no mock option is set).
  * @param {Object} [options.model] this object will be used through object-mapper in order to map the API response to our model.
