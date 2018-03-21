@@ -1,7 +1,5 @@
 export default function status (req, res) {
-    return {
-        ...res,
-        ...((res.status >= 200 && res.status < 300)
-            ? {data: res.json()} : {errorCode: res.status})
-    }
+    // returns res or a promise that resolves with res
+    return (res.status >= 200 && res.status < 300)
+        ? res.json.then(data => ({...res, data})) : {...res, errorCode: res.status}
 }
