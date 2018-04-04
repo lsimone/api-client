@@ -15,8 +15,11 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
 
         const app = express()
 
+        // /node_modules/api-client/dist  =>  3 levels down to the project root
+        const swaggerFile = path.join(__dirname, '../../../', options.swagger)
+
         app.use(cors(), mockApi({
-            swaggerFile: path.join(__dirname, options.swagger),
+            swaggerFile,
             watch: true // enable reloading the routes and schemas when the swagger file changes
         }))
 
