@@ -34,7 +34,8 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
  * @param {Object} [options]
  * @param {String} [options.host]
  * @param {Object} [options.body]
- * @param {Object} [options.headers]
+ * @param {Object} [options.headers] they will override getDefaultHeaders() return object by default
+ * @param {Boolean} [options.mergeHeaders] if true, headers provided are merged with getDefaultHeaders() return object
  * @param {Object} [options.mock] this object will be used as a temporary mock when an API endpoint is not ready yet.
  * @param {Object} [options.fallback] this object will be used as response data when an API endpoint returns error (and no mock option is set).
  * @param {Object} [options.model] this object will be used through object-mapper in order to map the API response to our model.
@@ -48,13 +49,15 @@ export function init (defaultHost, getDefaultHeaders, options = {}) {
  */
 export function call (endpoint, options = {}) {
     const host = options.host || _defaultHost
-    const basePath = (options.mock === true)? `http://localhost:${_mockServerPort}` : host
+    const basePath = (options.mock === true) ? `http://localhost:${_mockServerPort}` : host
     const url = getUrl(basePath, endpoint, options.params)
+    const headers = options.mergeHeaders ? {
+        ..._getDefaultHeaders(),
+        ...options.headers
+    } : options.headers
+
     const opt = {
-        headers: {
-            ..._getDefaultHeaders(),
-            ...options.headers
-        },
+        headers,
         method: options.method || (options.body ? 'POST' : 'GET'),
         ...(options.body ? {body: JSON.stringify(options.body)} : {})
     }
