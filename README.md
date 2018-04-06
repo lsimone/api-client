@@ -23,7 +23,7 @@ based on [chanchejs](http://chancejs.com/).
 
 
 ```
-import {init, call} from 'iso-client'
+import {init, call} from 'api-client'
 
 // init with global params
 init('http://your.api.basepath.com', () => {'Content-Type': 'application/json'})
