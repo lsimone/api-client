@@ -133,7 +133,7 @@ function sanitizeParams (params) {
         .reduce((acc, key) => {
         // filter undefined values
             return params[key] !== undefined ?
-                {...acc, key: params[key] } : acc
+                {...acc, [key]: params[key] } : acc
         }, {})
 }
 
