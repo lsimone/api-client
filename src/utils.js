@@ -6,8 +6,10 @@
  * above `fn()` in the call stack. `getCaller()` without arguments will return the name of the direct caller function.
  */
 export function getCaller (stackJump = 0) {
-    return new Error().stack
+    const caller = new Error().stack
         .split(/\r?\n/)[stackJump + 3]
+
+    return caller && caller
         .replace(/\s*at\s*/, '')
 }
 
