@@ -54,7 +54,7 @@ export function call (endpoint, options = {}) {
     const headers = options.mergeHeaders ? {
         ..._getDefaultHeaders(),
         ...options.headers
-    } : options.headers
+    } : (options.headers || _getDefaultHeaders())
 
     const opt = {
         headers,
