@@ -105,7 +105,7 @@ function chainMiddlewares (promise, middlewares, req) {
  * @return {string} url
  */
 function getUrl (host, endpoint, params = {}) {
-    const toBePlaced = {...params}
+    const toBePlaced = sanitizeParams(params)
 
     // substitute the path placeholders
     let path = (endpoint.match(URL_MATCHER_REGEXP) || [])
@@ -126,6 +126,15 @@ function getUrl (host, endpoint, params = {}) {
     const url = !query.length ? path : [path, query].join('?')
 
     return [host, url].join('/')
+}
+
+function sanitizeParams (params) {
+    return Object.keys(params)
+        .reduce((acc, key) => {
+        // filter undefined values
+            return params[key] !== undefined ?
+                {...acc, key: params[key] } : acc
+        }, {})
 }
 
 /**
