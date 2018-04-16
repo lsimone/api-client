@@ -6,11 +6,14 @@
  * above `fn()` in the call stack. `getCaller()` without arguments will return the name of the direct caller function.
  */
 export function getCaller (stackJump = 0) {
-    const caller = new Error().stack
-        .split(/\r?\n/)[stackJump + 3]
 
-    return caller && caller
-        .replace(/\s*at\s*/, '')
+    try {
+        return new Error().stack
+            .split(/\r?\n/)[stackJump + 3]
+            .replace(/\s*at\s*/, '')
+    } catch (e) {
+        console.log('getCaller() not possible')
+    }
 }
 
 export function mapValues (obj, mapFn) {
