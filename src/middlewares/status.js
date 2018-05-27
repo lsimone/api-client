@@ -7,7 +7,7 @@ export default function status (req, res) {
 function extractJson (res, debug) {
     return res.json().then(data => Object.assign(res, {data}))
         .catch(e => {
-            debug && console.log('eeeeeeei', e)
+            debug && console.error('extractJson() api-client error', e)
             return res
         })
 }

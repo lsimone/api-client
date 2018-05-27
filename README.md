@@ -4,7 +4,7 @@ This API client supports node and browser environments.
 It uses [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) under the hood,
 and provides a flexible interface, yet simple.
 
-## features
+## Features
 
 * middleware based: it comes already with basic middlewares, but it is
 possible to add custom ones.
@@ -51,11 +51,9 @@ call('events/:idEvent', {
 
 ## API
 
-* `src/client.js` exposes 2 methods: `init()`, used to set global parameters,
-and `call()`, used to perform HTTP calls
-* `src/server.js` is a `client.js` wrapper that
+See [API documentation](API.md)
 
-## middlewares
+## Middlewares
 
 It is possible to add custom middlewares by specifying them through the `init()`
 method.
@@ -74,7 +72,7 @@ the API call will result in an error)
 
 The order they are added in the promise chain **matters**.
 
-## models
+## Models
 
 TBD
 
@@ -88,4 +86,20 @@ export const venueRes = {
         model: city
     }
 }
+```
 
+## Tests
+
+```
+npm run test
+```
+
+## Contribution
+
+contribution is always welcome! Documentation is automatically generated
+and tests have to be kept up to date.
+
+* develop
+* update tests
+* `npm run build`
+* open a PR
