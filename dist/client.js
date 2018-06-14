@@ -104,6 +104,17 @@ function hydrateBaseOpt(defaultHost, getDefaultHeaders, baseOpt, options) {
     }, options));
 }
 
+function wrapFetchWithTimeout(url, opt, timeout) {
+    if (timeout !== undefined) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                return reject({ status: 408, ok: false, statusText: 'CLIENT TIMEOUT: ' + timeout + ' elapsed and no response has been received' });
+            }, timeout);
+            fetch(url, opt).then(resolve).catch(reject);
+        });
+    } else return fetch(url, opt);
+}
+
 function _call(endpoint, options) {
     var host = options.host,
         mock = options.mock,
@@ -132,7 +143,7 @@ function _call(endpoint, options) {
     // TODO: to be uncommented the next line and commented the one below
     debug && console.log('API-CLIENT CALL', (0, _utils.getCaller)(1), req);
 
-    var mockedFetch = fetch(url, opt).then(_success2.default.bind(this, req)).catch(_error2.default.bind(this, req));
+    var mockedFetch = wrapFetchWithTimeout(url, opt, options.timeout).then(_success2.default.bind(this, req)).catch(_error2.default.bind(this, req));
 
     // middleware binding
     return chainMiddlewares(mockedFetch, middlewaresSequence, req);
@@ -146,6 +157,8 @@ function _call(endpoint, options) {
  * @param {Object} [options.body] body payload sent through the request
  * @param {Object} [options.headers] they will override getDefaultHeaders() return object by default
  * @param {Boolean} [options.mergeHeaders=true] if true, headers provided are merged with getDefaultHeaders() return object
+ * @param {Number} [options.timeout] timeout in ms: it will raise a client timeout error if response is not received
+ * before <timeout>ms.
  * @param {Object} [options.mock=false] this object will be used as a temporary mock when an API endpoint is not ready yet.
  * @param {Object} [options.mockServerPort] mocking server port.
  * @param {Object} [options.fallback] this object will be used as response data when an API endpoint returns error (and no mock option is set).

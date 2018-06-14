@@ -13,5 +13,5 @@ var enrichResponse = function enrichResponse(req, res) {
 function extractData(req, res) {
     var fullResponse = req.options.fullResponse;
 
-    return fullResponse ? enrichResponse(req, res) : res.ok ? Promise.resolve(res.data) : Promise.reject({ status: res.errorCode, response: res });
+    return res.ok ? Promise.resolve(fullResponse ? enrichResponse(req, res) : res.data) : Promise.reject({ status: res.errorCode, response: res });
 }

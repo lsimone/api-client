@@ -26,6 +26,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.0.0",
-    "jest-fetch-mock": "^1.6.2"
+    "jest-fetch-mock": "git+https://github.com/musement/jest-fetch-mock.git#c7abcdbe58f1ab2c7bf065bcc01a6a5f2744b104",
+    "jsdoc-to-markdown": "^4.0.1"
   }
 }

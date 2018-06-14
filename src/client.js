@@ -62,6 +62,15 @@ function hydrateBaseOpt (defaultHost, getDefaultHeaders, baseOpt, options) {
     })
 }
 
+function wrapFetchWithTimeout (url, opt, timeout) {
+  if(timeout !== undefined) {
+      return new Promise((resolve, reject) => {
+          setTimeout(() => reject({status: 408, ok: false, statusText: `CLIENT TIMEOUT: ${timeout} elapsed and no response has been received`}), timeout)
+          fetch(url, opt).then(resolve).catch(reject)
+      })
+  } else return fetch(url, opt)
+}
+
 function _call (endpoint, options) {
     const {host, mock, params, mergeHeaders, headers, body, method, debug, middlewares, getDefaultHeaders, mockServerPort} = options
     const basePath = (mock === true) ? `http://localhost:${mockServerPort}` : host
@@ -89,7 +98,7 @@ function _call (endpoint, options) {
     // TODO: to be uncommented the next line and commented the one below
     debug && console.log('API-CLIENT CALL', getCaller(1), req)
 
-    const mockedFetch = fetch(url, opt)
+    const mockedFetch = wrapFetchWithTimeout(url, opt, options.timeout)
         .then(mockSuccess.bind(this, req))
         .catch(mockError.bind(this, req))
 
@@ -105,6 +114,8 @@ function _call (endpoint, options) {
  * @param {Object} [options.body] body payload sent through the request
  * @param {Object} [options.headers] they will override getDefaultHeaders() return object by default
  * @param {Boolean} [options.mergeHeaders=true] if true, headers provided are merged with getDefaultHeaders() return object
+ * @param {Number} [options.timeout] timeout in ms: it will raise a client timeout error if response is not received
+ * before <timeout>ms.
  * @param {Object} [options.mock=false] this object will be used as a temporary mock when an API endpoint is not ready yet.
  * @param {Object} [options.mockServerPort] mocking server port.
  * @param {Object} [options.fallback] this object will be used as response data when an API endpoint returns error (and no mock option is set).
