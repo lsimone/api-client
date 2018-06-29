@@ -3,7 +3,8 @@
     "env"
   ],
   "plugins": [
-    "transform-object-rest-spread"
+    "transform-object-rest-spread",
+    "transform-object-assign"
   ],
   "env": {
     "dist": {

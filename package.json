@@ -8,7 +8,7 @@
     "start": "node dist/server.js",
     "build": "NODE_ENV=dist babel src --out-dir dist & npm run generate-md",
     "test": "NODE_ENV=test jest src --no-cache",
-    "generate-md": "jsdoc2md --no-cache src/client.js >> API.md"
+    "generate-md": "jsdoc2md --no-cache src/client.js > API.md"
   },
   "author": "loris32",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-jest": "^23.0.0",
+    "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^23.0.0",

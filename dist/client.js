@@ -98,7 +98,7 @@ function getClient(defaultHost, getDefaultHeaders) {
 }
 
 function hydrateBaseOpt(defaultHost, getDefaultHeaders, baseOpt, options) {
-    return Object.assign(baseOpt, DEFAULT_OPTIONS, _extends({
+    return _extends(baseOpt, DEFAULT_OPTIONS, _extends({
         host: defaultHost,
         getDefaultHeaders: getDefaultHeaders
     }, options));
