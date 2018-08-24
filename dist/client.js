@@ -134,7 +134,7 @@ function _call(endpoint, options) {
     var opt = _extends({
         headers: mergeHeaders ? _extends({}, getDefaultHeaders(), headers) : headers || getDefaultHeaders(),
         method: method || (body ? 'POST' : 'GET')
-    }, body ? { body: JSON.stringify(body) } : {});
+    }, body ? { body: typeof body === 'string' ? body : JSON.stringify(body) } : {});
 
     var req = { host: host, url: url, debug: debug, fetchOpt: opt, options: options };
 

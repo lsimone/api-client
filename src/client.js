@@ -82,7 +82,9 @@ function _call (endpoint, options) {
             ...headers
         } : (headers || getDefaultHeaders()),
         method: method || (body ? 'POST' : 'GET'),
-        ...(body ? {body: JSON.stringify(body)} : {})
+        ...(body
+            ? {body: (typeof body === 'string')
+                ? body : JSON.stringify(body)} : {})
     }
 
     const req = { host, url, debug, fetchOpt: opt, options }
