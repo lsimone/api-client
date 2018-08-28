@@ -4,7 +4,7 @@ import cors from 'cors'
 import mockApi from 'swagger-mock-api'
 import { init as clientInit } from './client'
 
-export { call } from './client'
+export { call, getClient } from './client'
 
 export function init (defaultHost, getDefaultHeaders, options = {}) {
     let mockServerPort
