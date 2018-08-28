@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.call = undefined;
+exports.getClient = exports.call = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -13,6 +13,12 @@ Object.defineProperty(exports, 'call', {
     enumerable: true,
     get: function get() {
         return _client.call;
+    }
+});
+Object.defineProperty(exports, 'getClient', {
+    enumerable: true,
+    get: function get() {
+        return _client.getClient;
     }
 });
 exports.init = init;
