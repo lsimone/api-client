@@ -165,6 +165,7 @@ function _call(endpoint, options) {
  * @param {Object} [options.model] this object will be used through object-mapper in order to map the API response to our model.
  * If not defined, no mapping will be performed.
  * @param {String} [options.method] if not defined, POST will be used if body is present, otherwise GET is used as default.
+ * @param {Boolean} [options.blob] if defined, data will be extracted as a blob, otherwise, it will default to a json encoding
  * @param {Object} [options.params] this object is matched against the endpoint expression. All the parameters not present in it,
  * @param {Boolean} [options.fullResponse=false] it returns the whole response object (not only the data received)
  * will be attached as query string

@@ -102,4 +102,5 @@ and tests have to be kept up to date.
 * develop
 * update tests
 * `npm run build`
+* `npm run generate-md`
 * open a PR

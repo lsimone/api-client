@@ -20,12 +20,9 @@ const GET_DEFAULT_HEADERS = () => DEFAULT_HEADERS
 jest.setTimeout(30000);
 
 
-function delayed (body, TIMEOUT) {
-  return new Promise((resolve, reject) => {
+const delayed = (body, TIMEOUT) => () => new Promise((resolve, reject) => {
     setTimeout(() => resolve({body: JSON.stringify(body)}), TIMEOUT)
   })
-}
-
 
 beforeEach(() => {
     fetch.resetMocks()
@@ -132,6 +129,7 @@ test('timeout occurs and timeout error is raised', async () => {
     }
 })
 
+// TODO: to be fixed
 test('timeout does not occurs and no error is raised', async () => {
     init(MUSEMENT_HOST, GET_DEFAULT_HEADERS)
     fetch.mockResponseOnce(delayed({ foo: DEFAULT_FOO }, 1000))
@@ -143,3 +141,23 @@ test('timeout does not occurs and no error is raised', async () => {
     expect(fetch.mock.calls[0][0]).toBe(`${MUSEMENT_HOST}/${CITIES_URL}`)
 })
 
+
+test('requests with option.blob will result in a Blob object', async () => {
+    fetch.mockResponseOnce(delayed({ foo: DEFAULT_FOO }, 1000))
+
+    init(MUSEMENT_HOST, GET_DEFAULT_HEADERS)
+    const res = await call('test', {blob: true, body: { test: '12345=' }})
+
+    expect(res.constructor.name).toBe('Blob')
+})
+
+
+// test('mocked responses resolve with the given value', async () => {
+//     init(MUSEMENT_HOST, GET_DEFAULT_HEADERS)
+//     // fetch.mockReject(new Error('fake error message'))
+//     // fetch.mockResponseOnce(delayed({ foo: DEFAULT_FOO }, 1000))
+//
+//     const res = await call(CITIES_URL, {mock: {test: 97}})
+//     console.log('eccc', res)
+//     expect(res.test).toBe(97)
+// })
