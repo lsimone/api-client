@@ -11,7 +11,7 @@ function status(req, res) {
     // returns res or a promise that resolves with res
     var blob = req.options.blob;
 
-    return res.ok ? extractJson(res, req.debug, blob) : _extends(res, { errorCode: res.status });
+    return res.ok ? res.status === 204 ? res : extractJson(res, req.debug, blob) : _extends(res, { errorCode: res.status });
 }
 
 function extractJson(res, debug, blob) {

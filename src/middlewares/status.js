@@ -2,7 +2,8 @@ export default function status (req, res) {
     // returns res or a promise that resolves with res
     const {options: {blob}} = req
     return res.ok
-        ? extractJson(res, req.debug, blob) : Object.assign(res, {errorCode: res.status})
+        ? (res.status === 204 ? res : extractJson(res, req.debug, blob)) 
+        : Object.assign(res, {errorCode: res.status})
 }
 
 function extractJson (res, debug, blob) {
