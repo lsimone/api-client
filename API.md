@@ -59,7 +59,7 @@
 | [options.fallback] | <code>Object</code> |  | this object will be used as response data when an API endpoint returns error (and no mock option is set). |
 | [options.model] | <code>Object</code> |  | this object will be used through object-mapper in order to map the API response to our model. If not defined, no mapping will be performed. |
 | [options.method] | <code>String</code> |  | if not defined, POST will be used if body is present, otherwise GET is used as default. |
-| [options.blob] | <code>Boolean</code> |  | if defined, data will be extracted as a blob, otherwise, it will default to a json encoding |
+| [options.parse] | <code>String</code> |  | if 'blob', data will be extracted as a blob, if 'text', data will be extracted as a text, otherwise, it will default to a json encoding |
 | [options.params] | <code>Object</code> |  | this object is matched against the endpoint expression. All the parameters not present in it, |
 | [options.fullResponse] | <code>Boolean</code> | <code>false</code> | it returns the whole response object (not only the data received) will be attached as query string |
 
