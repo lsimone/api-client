@@ -6,14 +6,14 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node dist/server.js",
-    "build": "NODE_ENV=dist npm run generate-md & babel src --out-dir dist",
+    "build": "NODE_ENV=dist npm run generate-md & babel src --out-dir dist --ignore *.test.js",
     "test": "NODE_ENV=test jest src --no-cache",
     "test-debug": "NODE_ENV=test node --inspect-brk node_modules/.bin/jest --runInBand",
     "generate-md": "jsdoc2md --no-cache src/client.js > API.md"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run build"
+      "pre-commit": "npm run test && npm run build"
     }
   },
   "author": "loris32",
@@ -34,7 +34,7 @@
     "babel-preset-env": "^1.7.0",
     "husky": "^1.3.1",
     "jest": "^23.0.0",
-    "jest-fetch-mock": "git+https://github.com/musement/jest-fetch-mock.git#c7abcdbe58f1ab2c7bf065bcc01a6a5f2744b104",
+    "jest-fetch-mock": "^2.1.2",
     "jsdoc-to-markdown": "^4.0.1"
   }
 }

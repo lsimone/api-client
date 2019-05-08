@@ -146,7 +146,7 @@ test('requests with option.blob will result in a Blob object', async () => {
     fetch.mockResponseOnce(delayed({ foo: DEFAULT_FOO }, 1000))
 
     init(MUSEMENT_HOST, GET_DEFAULT_HEADERS)
-    const res = await call('test', {blob: true, body: { test: '12345=' }})
+    const res = await call('test', {parse: 'blob', body: { test: '12345=' }})
 
     expect(res.constructor.name).toBe('Blob')
 })
